@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import web.dao.CarDao;
 import web.model.Car;
 import web.service.CarServicelmpl;
+import web.service.CarServise;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,16 +19,16 @@ import java.util.Arrays;
 @Controller
 public class CarController {
 
-    private final CarServicelmpl carServicelmpl;
+    private CarServise carService;
 
-    public CarController(CarServicelmpl carServicelmpl) {
-        this.carServicelmpl = carServicelmpl;
+    public CarController(CarServise carService) {
+        this.carService = carService;
     }
 
     @GetMapping(value = "/cars")
     public String getCar(@RequestParam(value = "count", defaultValue = "5") int value, Model model) {
 
-        model.addAttribute("cars",carServicelmpl.getCarCount(value));
+        model.addAttribute("cars",carService.getCarCount(value));
 
         return "cars";
     }
